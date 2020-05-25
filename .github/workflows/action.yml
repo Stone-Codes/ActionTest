@@ -16,6 +16,6 @@ jobs:
         wget -q -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
         sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main"
         curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.deb.sh | sudo bash
-        sudo apt-get install -y gdal-bin postgresql-9.6 postgresql-9.6-postgis-2.4 python-coverage rabbitmq-server redis-server
+        sudo apt-get install -y gdal-bin postgresql-9.6 postgresql-9.6-postgis-2.4 python-coverage rabbitmq-server=3.7.25-1 redis-server
         sudo -u postgres psql -c "CREATE EXTENSION postgis"
         sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'foobar';"
