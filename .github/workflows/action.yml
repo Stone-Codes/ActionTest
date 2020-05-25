@@ -1,0 +1,20 @@
+name: GitHub Actions
+on: [create, push]
+jobs:
+  ci:
+    name: Continuous integration
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: Install Operating System dependencies
+      run: |
+        wget -q -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+        sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main"
+        curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.deb.sh | sudo bash
+        sudo apt-get install -y gdal-bin postgresql-9.6 postgresql-9.6-postgis-2.4 python-coverage rabbitmq-server redis-server
+        sudo -u postgres psql -c "CREATE EXTENSION postgis"
+        sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'foobar';"
